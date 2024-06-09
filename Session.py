@@ -3,8 +3,8 @@ class SessionManager:
     def __init__(self):
         self.__session = session
 
-    def activate_session(self,name):
-        self.__session['user'] = name 
+    def activate_session(self,obj):
+        self.__session['user'] = obj 
 
     def isactive(self):
         return self.__session.get('user',None) is not None 

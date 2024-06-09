@@ -48,10 +48,9 @@ def createaccount():
 def transaction():
     #type -> deposit or withdrawal
     account_number = request.form.get('account_no')
-    revpay_id = request.form.get('user_id')
     amount = request.form.get('amount')
     type = request.form.get('type')
-    transaction_obj = TransactionManager(revpay_id,int(amount),account_number)
+    transaction_obj = TransactionManager(int(amount),account_number)
     output = ""
     if type == "withdraw":
        output = transaction_obj.withdraw()
@@ -62,14 +61,8 @@ def transaction():
 #balance
 @app.route("/balance", methods=['POST'])
 def Balance():
-    revpay_id = request.form.get('user_id')
     account_number = request.form.get('account_no')
-    balance_obj = BalanceManager(revpay_id,account_number)
+    balance_obj = BalanceManager(account_number)
     output = balance_obj.check_balance()
     return output
-    
-
-
-
-
 

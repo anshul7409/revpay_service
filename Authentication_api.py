@@ -14,13 +14,13 @@ class Authentication:
         self.__user = self.__users_collection.find_one({'username':username})
     
     def register(self):
+        if self.__session.isactive():
+           self.__session.delete_session()
         hashed_password = ph.hash(self.__password)
         if self.__users_collection.find_one({'username': self.__username}):
             return jsonify({'message': 'User already exists!'}), 400
         user_data = {'username': self.__username, 'password': hashed_password}
         self.__users_collection.insert_one(user_data)
-        if self.__session.isactive():
-           self.__session.delete_session()
         return jsonify({'message': 'User registered successfully!'})
     
     def login(self):
@@ -29,7 +29,8 @@ class Authentication:
         else:
             try:
                 if ph.verify(self.__user['password'], self.__password):
-                    self.__session.activate_session(self.__user['username'])
+                    print(self.__user)
+                    self.__session.activate_session([self.__user['username'],str(self.__user['_id'])])
                     return jsonify({'message': 'Login successful!'})
             except:
                 return jsonify({'message': 'Invalid password'}), 401
