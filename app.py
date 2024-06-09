@@ -5,9 +5,7 @@ from Session import SessionManager
 from Account import AccountManager
 from Transaction import TransactionManager
 from Balance import BalanceManager
-from dotenv import load_dotenv
 
-load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
 
