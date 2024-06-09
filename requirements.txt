@@ -1,0 +1,5 @@
+Flask
+pymongo
+Gunicorn 
+agron2
+loadenv
