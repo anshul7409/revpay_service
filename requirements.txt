@@ -2,4 +2,3 @@ Flask
 pymongo
 Gunicorn 
 argon2-cffi
-dotenv
