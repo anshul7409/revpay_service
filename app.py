@@ -6,6 +6,7 @@ from Session import SessionManager
 from Account import AccountManager
 from Transaction import TransactionManager
 from Balance import BalanceManager
+from Validate import Validate
 
 app = Flask(__name__)
 CORS(app)
@@ -16,6 +17,10 @@ app.secret_key = os.getenv('SECRET_KEY')
 def register():
     username = request.form.get('username')
     password = request.form.get('password')
+    val_obj = Validate({"username":username,"password":password})
+    invalidvar = val_obj.validate()
+    if invalidvar:
+      return jsonify({"message": "invalid " + invalidvar})
     auth = Authentication(username,password)
     output = auth.register()
     return output
@@ -25,6 +30,10 @@ def register():
 def login():
     username = request.form.get('username')
     password = request.form.get('password')
+    val_obj = Validate({"username":username,"password":password})
+    invalidvar = val_obj.validate()
+    if invalidvar:
+      return jsonify({"message": "invalid " + invalidvar})
     auth = Authentication(username,password)
     output = auth.login()
     return output
@@ -41,6 +50,10 @@ def logout():
 def createaccount():
     account_number = request.form.get('account_no')
     ifsc_code = request.form.get('ifsc_code')
+    val_obj = Validate({"account_no":account_number,"ifsc_code":ifsc_code})
+    invalidvar = val_obj.validate()
+    if invalidvar:
+      return jsonify({"message": "invalid " + invalidvar})
     acc = AccountManager(account_number,ifsc_code)
     output = acc.createaccount()
     return output
@@ -52,6 +65,10 @@ def transaction():
     account_number = request.form.get('account_no')
     amount = request.form.get('amount')
     type = request.form.get('type')
+    val_obj = Validate({"account_no":account_number,"amount":amount})
+    invalidvar = val_obj.validate()
+    if invalidvar:
+       return jsonify({"message": "invalid " + invalidvar})
     transaction_obj = TransactionManager(int(amount),account_number)
     output = ""
     if type == "withdraw":
@@ -64,6 +81,10 @@ def transaction():
 @app.route("/balance", methods=['POST'])
 def Balance():
     account_number = request.form.get('account_no')
+    val_obj = Validate({"account_no":account_number})
+    invalidvar = val_obj.validate()
+    if invalidvar:
+       return jsonify({"message": "invalid " + invalidvar})
     balance_obj = BalanceManager(account_number)
     output = balance_obj.check_balance()
     return output
