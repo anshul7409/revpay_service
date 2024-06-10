@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import os
 from Authentication_api import Authentication
 from Session import SessionManager
@@ -7,6 +8,7 @@ from Transaction import TransactionManager
 from Balance import BalanceManager
 
 app = Flask(__name__)
+CORS(app)
 app.secret_key = os.getenv('SECRET_KEY')
 
 #register

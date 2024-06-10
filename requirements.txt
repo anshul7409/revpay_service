@@ -2,3 +2,4 @@ Flask
 pymongo
 Gunicorn 
 argon2-cffi
+flask_cors
