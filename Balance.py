@@ -5,7 +5,7 @@ class BalanceManager:
     def __init__(self,account_no):
         self.__session_ins = SessionManager()
         __session = self.__session_ins.get_session()
-        self.__revpayid = __session[1]
+        self.__revpayid = __session[1] if __session else None 
         self.__account_no = account_no
         DB_ins = revpayDB()
         self.__accounts_collection = DB_ins.get_collection('users_account')
