@@ -38,7 +38,7 @@ class TransactionManager:
                         )
                         return jsonify({"message": "Withdrawal successful!", "current_balance": new_balance}),200
                     else:
-                        return jsonify({"message": "Account number invalid!"}), 404
+                        return jsonify({"message": "Invalid Account number!"}), 404
         return jsonify({"message": "Please login to start transaction"})
 
     def deposit(self):
@@ -64,5 +64,5 @@ class TransactionManager:
                         )
                         return jsonify({"message": "Deposit successful!", "current_balance": new_balance}),200
                     else:
-                        return jsonify({"message": "Account number invalid!"}), 404
+                        return jsonify({"message": "Invalid Account number!"}), 404
         return jsonify({"message": "Please login to start transaction"})
