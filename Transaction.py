@@ -6,7 +6,7 @@ class TransactionManager:
     def __init__(self,amount,account_no):
         self.__session_ins = SessionManager()
         self.__session = self.__session_ins.get_session()
-        self.__id = self.__session[1]
+        self.__id = self.__session[1] if self.__session is not None else None 
         self.__account_no = account_no
         self.__amount = amount
         DB_ins = revpayDB()
