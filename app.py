@@ -72,8 +72,10 @@ def transaction():
     output = ""
     if type == "withdraw":
        output = transaction_obj.withdraw()
-    else:
+    elif type == "deposit":
        output = transaction_obj.deposit()
+    else:
+      return jsonify({"message":"invalid option"})
     return output
 
 #balance
