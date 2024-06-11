@@ -48,13 +48,12 @@ def logout():
 #create account
 @app.route("/createaccount", methods=['POST'])
 def createaccount():
-    account_number = request.form.get('account_no')
     ifsc_code = request.form.get('ifsc_code')
-    val_obj = Validate({"account_no":account_number,"ifsc_code":ifsc_code})
+    val_obj = Validate({"ifsc_code":ifsc_code})
     invalidvar = val_obj.validate()
     if invalidvar:
       return jsonify({"message": "invalid " + invalidvar})
-    acc = AccountManager(account_number,ifsc_code)
+    acc = AccountManager(ifsc_code)
     output = acc.createaccount()
     return output
 

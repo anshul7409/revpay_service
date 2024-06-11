@@ -2,10 +2,10 @@ from flask import jsonify
 import uuid
 from DB_conn import revpayDB
 from Session import SessionManager
+import random
 
 class AccountManager:
-    def __init__(self,account_number,ifsc_code):
-        self.__account_number = account_number
+    def __init__(self,ifsc_code):
         self.__ifsc_code = ifsc_code
         __db = revpayDB()
         self.__se = SessionManager()
@@ -16,11 +16,15 @@ class AccountManager:
     def inactive(self):
         self.__active = 0
 
+    def generate_random_string(self,length):
+        return ''.join(random.choices('0123456789', k=length))
+
     def createaccount(self):
         if self.__se.isactive():     
             id = self.__session[1]
             uid = str(uuid.uuid4())
-            account_data = {"UID":uid, "account_number": self.__account_number, "ifsc_code": self.__ifsc_code, "balance":0.0, "active":self.__active}
+            account_number = self.generate_random_string(10)
+            account_data = {"UID":uid, "account_number": account_number, "ifsc_code": self.__ifsc_code, "balance":0.0, "active":self.__active}
             self.__users_account.update_one(
                 {'user_id': id},
                 {'$push': {'accounts': account_data}},
