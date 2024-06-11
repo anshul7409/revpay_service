@@ -16,14 +16,14 @@ class AccountManager:
     def inactive(self):
         self.__active = 0
 
-    def generate_random_string(self,length):
+    def account_no_generator(self,length):
         return ''.join(random.choices('0123456789', k=length))
 
     def createaccount(self):
         if self.__se.isactive():     
             id = self.__session[1]
             uid = str(uuid.uuid4())
-            account_number = self.generate_random_string(10)
+            account_number = self.account_no_generator(10)
             account_data = {"UID":uid, "account_number": account_number, "ifsc_code": self.__ifsc_code, "balance":0.0, "active":self.__active}
             self.__users_account.update_one(
                 {'user_id': id},
