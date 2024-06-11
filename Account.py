@@ -7,11 +7,11 @@ class AccountManager:
     def __init__(self,account_number,ifsc_code):
         self.__account_number = account_number
         self.__ifsc_code = ifsc_code
-        self.__db = revpayDB()
+        __db = revpayDB()
         self.__se = SessionManager()
         self.__session = self.__se.get_session()
         self.__active = 1
-        self.__users_account = self.__db.get_collection('users_account')
+        self.__users_account = __db.get_collection('users_account')
     
     def inactive(self):
         self.__active = 0

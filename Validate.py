@@ -21,9 +21,9 @@ class Validate:
             if  key == "username":
                 exp = r"^[A-Za-z]+$"
                 if not bool(re.match(exp, value)):
-                   res = res + key + " (name should consists of characters)" +  " | "
+                   res = res + key + " (name should consists of only characters)" +  " | "
             if  key == "password":
                 exp = r"^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{1,16}$"
                 if not bool(re.match(exp, value)):
-                   res = res + key + " (password should consists of atleast 1 alphanumeric , 1 number)"  + " | "
+                   res = res + key + " (password should consists of atleast 1 alphanumeric , 1 special character and 1 number)"  + " | "
         return res 

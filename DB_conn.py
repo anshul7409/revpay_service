@@ -1,5 +1,6 @@
 from urllib.parse import quote_plus
 from pymongo import MongoClient
+from Schema import Schema
 import os
 db_username = os.getenv('DBNAME')
 db_password = os.getenv('PASSWORD')
@@ -16,5 +17,10 @@ class revpayDB:
         return self.__db 
     
     def get_collection(self,collection):
-        collection = self.__db[collection]
-        return collection
+        schema_obj = Schema(collection)
+        schema = schema_obj.get_schema()
+        try:
+          self.__db.create_collection(collection, validator={"$jsonSchema": schema})
+        except:
+          print("collection already exisits")
+        return self.__db[collection]
